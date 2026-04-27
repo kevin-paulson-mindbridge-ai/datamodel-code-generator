@@ -66,6 +66,57 @@ def escape_docstring(value: str | None) -> str | None:
     return value.replace("\\", "\\\\").replace('"""', '\\"\\"\\"')
 
 
+def format_pep257_docstring(
+    value: str | None,
+    quote_indent: int = 4,
+    continuation_indent: int | None = None,
+) -> str:
+    """Format *value* as a triple-quoted Python string for generated code.
+
+    Single-line text (no newline after escaping) uses a one-line docstring per
+    PEP 257. Multi-line text uses opening and closing quote lines with a body
+    in between.
+
+    Args:
+        value: Raw description or docstring text.
+        quote_indent: Spaces before each opening or closing quote line and, in
+            uniform mode, before each body line.
+        continuation_indent: If set, multi-line bodies use a hanging layout:
+            the first body line is indented only by *quote_indent*; later lines
+            use *quote_indent* + *continuation_indent* extra spaces (matching
+            Jinja's ``indent(continuation_indent)`` with no leading prefix on
+            the first line). If ``None``, every body line uses the same indent
+            as the quote lines.
+
+    Returns:
+        Empty string when *value* is falsy; otherwise the full docstring block
+        including a trailing newline.
+    """
+    if not value:
+        return ""
+    escaped = escape_docstring(value)
+    if escaped is None:
+        return ""
+    qi = max(quote_indent, 0)
+    prefix = " " * qi
+    tail = "\n"
+
+    if "\n" not in escaped:
+        return f'{prefix}"""{escaped}"""{tail}'
+
+    lines = escaped.split("\n")
+
+    if continuation_indent is None:
+        body = "\n".join(f"{prefix}{line}" for line in lines)
+    else:
+        ci = max(continuation_indent, 0)
+        cont = " " * (qi + ci)
+        first_body = f"{prefix}{lines[0]}"
+        body = first_body if len(lines) == 1 else first_body + "\n" + "\n".join(f"{cont}{line}" for line in lines[1:])
+
+    return f'{prefix}"""\n{body}\n{prefix}"""{tail}'
+
+
 ALL_MODEL: str = "#all#"
 GENERIC_BASE_CLASS_PATH: str = "#/__datamodel_code_generator__/generic_base_class__"
 GENERIC_BASE_CLASS_NAME: str = "__generic_base_class__"
@@ -453,6 +504,7 @@ def _get_environment(template_subdir: Path, custom_template_dir: Path | None) ->
         autoescape=select_autoescape(["html", "xml"]),
     )
     env.filters["escape_docstring"] = escape_docstring
+    env.filters["format_pep257_docstring"] = format_pep257_docstring
     return env
 
 
@@ -486,6 +538,7 @@ def _get_environment_with_absolute_path(absolute_template_dir: Path, builtin_sub
         autoescape=select_autoescape(["html", "xml"]),
     )
     env.filters["escape_docstring"] = escape_docstring
+    env.filters["format_pep257_docstring"] = format_pep257_docstring
     return env
 
 

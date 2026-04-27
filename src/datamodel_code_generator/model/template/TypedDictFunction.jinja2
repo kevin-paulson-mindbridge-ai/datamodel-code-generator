@@ -1,15 +1,11 @@
 {%- if description %}
-"""
-{{ description | escape_docstring | indent(4) }}
-"""
+{{ description | format_pep257_docstring(quote_indent=0, continuation_indent=4) }}
 {%- endif %}
 {{ class_name }} = TypedDict('{{ class_name }}', {
 {%- for field in all_fields %}
     '{{ field.key }}': {{ field.type_hint }},
     {%- if field.docstring %}
-    """
-    {{ field.docstring | escape_docstring | indent(4) }}
-    """
+{{ field.docstring | format_pep257_docstring(4) }}
 {%- if field.use_inline_field_description and not loop.last %}
 
 {% endif %}

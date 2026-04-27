@@ -1,6 +1,4 @@
 type {{ class_name }} = {{ py_type }}
 {%- if description %}
-"""
-{{ description }}
-"""
+{{ description | format_pep257_docstring(0) }}
 {%- endif %}
