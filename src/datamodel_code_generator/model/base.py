@@ -7,6 +7,7 @@ representation, and DataModel as the abstract base for all model types.
 from __future__ import annotations
 
 import re
+import textwrap
 from abc import ABC, abstractmethod
 from collections import defaultdict
 from copy import deepcopy
@@ -66,55 +67,39 @@ def escape_docstring(value: str | None) -> str | None:
     return value.replace("\\", "\\\\").replace('"""', '\\"\\"\\"')
 
 
-def format_pep257_docstring(
-    value: str | None,
-    quote_indent: int = 4,
-    continuation_indent: int | None = None,
-) -> str:
-    """Format *value* as a triple-quoted Python string for generated code.
+def format_docstring(value: str | None, indent_spaces: int = 0) -> str:
+    """Format *value* as a docstring as per PEP 257.
 
-    Single-line text (no newline after escaping) uses a one-line docstring per
-    PEP 257. Multi-line text uses opening and closing quote lines with a body
-    in between.
+    PEP 257 recommends that docstrings that can fit on one line should be formatted on a
+    single line, for consistency and readability. Leading and trailing whitespace will
+    be removed, and if after this the value is falsy, an empty string is returned. It is
+    assumed that the opening triple-quotes are indented appropriately in the template.
+    If it's a multi-line docstring, each line including the closing triple-quotes will
+    be indented as per indent_spaces.
 
     Args:
-        value: Raw description or docstring text.
-        quote_indent: Spaces before each opening or closing quote line and, in
-            uniform mode, before each body line.
-        continuation_indent: If set, multi-line bodies use a hanging layout:
-            the first body line is indented only by *quote_indent*; later lines
-            use *quote_indent* + *continuation_indent* extra spaces (matching
-            Jinja's ``indent(continuation_indent)`` with no leading prefix on
-            the first line). If ``None``, every body line uses the same indent
-            as the quote lines.
+        value: docstring text
+        indent_spaces: Spaces to indent for all lines after the opening triple-quotes
 
     Returns:
-        Empty string when *value* is falsy; otherwise the full docstring block
+        Empty string when `value` is falsy; otherwise the docstring block
         including a trailing newline.
     """
     if not value:
         return ""
-    escaped = escape_docstring(value)
-    if escaped is None:
+
+    value = value.strip()
+
+    if not value:
         return ""
-    qi = max(quote_indent, 0)
-    prefix = " " * qi
-    tail = "\n"
 
-    if "\n" not in escaped:
-        return f'{prefix}"""{escaped}"""{tail}'
+    escaped = escape_docstring(value)
 
-    lines = escaped.split("\n")
+    if len(value.splitlines()) > 1:
+        return f'"""{escaped}"""\n'
 
-    if continuation_indent is None:
-        body = "\n".join(f"{prefix}{line}" for line in lines)
-    else:
-        ci = max(continuation_indent, 0)
-        cont = " " * (qi + ci)
-        first_body = f"{prefix}{lines[0]}"
-        body = first_body if len(lines) == 1 else first_body + "\n" + "\n".join(f"{cont}{line}" for line in lines[1:])
-
-    return f'{prefix}"""\n{body}\n{prefix}"""{tail}'
+    indent_text = textwrap.indent(f'{escaped}\n"""', max(indent_spaces, 0) * " ")
+    return f'"""\n{indent_text}\n'
 
 
 ALL_MODEL: str = "#all#"
@@ -504,7 +489,7 @@ def _get_environment(template_subdir: Path, custom_template_dir: Path | None) ->
         autoescape=select_autoescape(["html", "xml"]),
     )
     env.filters["escape_docstring"] = escape_docstring
-    env.filters["format_pep257_docstring"] = format_pep257_docstring
+    env.filters["format_pep257_docstring"] = format_docstring
     return env
 
 
@@ -538,7 +523,7 @@ def _get_environment_with_absolute_path(absolute_template_dir: Path, builtin_sub
         autoescape=select_autoescape(["html", "xml"]),
     )
     env.filters["escape_docstring"] = escape_docstring
-    env.filters["format_pep257_docstring"] = format_pep257_docstring
+    env.filters["format_pep257_docstring"] = format_docstring
     return env
 
 
