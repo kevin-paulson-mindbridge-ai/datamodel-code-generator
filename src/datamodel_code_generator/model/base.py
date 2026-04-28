@@ -84,10 +84,7 @@ def format_docstring(value: str | None, indent_spaces: int = 0) -> str:
     Returns:
         Empty string when `value` is falsy; otherwise the docstring block.
     """
-    if not value:
-        return ""
-
-    value = value.strip()
+    value = (value or "").strip()
 
     if not value:
         return ""
@@ -490,6 +487,7 @@ def _get_environment(template_subdir: Path, custom_template_dir: Path | None) ->
         loader=loader,
         autoescape=select_autoescape(["html", "xml"]),
     )
+    env.filters["escape_docstring"] = escape_docstring  # For old custom templates
     env.filters["format_docstring"] = format_docstring
     return env
 
@@ -523,6 +521,7 @@ def _get_environment_with_absolute_path(absolute_template_dir: Path, builtin_sub
         loader=ChoiceLoader(loaders),
         autoescape=select_autoescape(["html", "xml"]),
     )
+    env.filters["escape_docstring"] = escape_docstring  # For old custom templates
     env.filters["format_docstring"] = format_docstring
     return env
 
