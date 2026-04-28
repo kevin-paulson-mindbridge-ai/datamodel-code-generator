@@ -95,7 +95,7 @@ def format_docstring(value: str | None, indent_spaces: int = 0) -> str:
 
     escaped = escape_docstring(value)
 
-    if len(value.splitlines()) > 1:
+    if len(value.splitlines()) == 1:
         return f'"""{escaped}"""\n'
 
     indent_text = textwrap.indent(f'{escaped}\n"""', max(indent_spaces, 0) * " ")
