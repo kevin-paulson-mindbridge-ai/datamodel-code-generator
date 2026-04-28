@@ -21,9 +21,7 @@ type ArrayType = list[str]
 
 
 type AnnotatedType = Annotated[str | bool, Field(..., title='MyAnnotatedType')]
-"""
-An annotated union type
-"""
+"""An annotated union type"""
 
 
 class ModelWithTypeAliasField(BaseModel):

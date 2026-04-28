@@ -8,15 +8,11 @@ from pydantic import RootModel
 from typing_extensions import TypeAliasType
 
 Boolean = TypeAliasType("Boolean", bool)
-"""
-The `Boolean` scalar type represents `true` or `false`.
-"""
+"""The `Boolean` scalar type represents `true` or `false`."""
 
 
 String = TypeAliasType("String", str)
-"""
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-"""
+"""The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text."""
 
 
 class Color(RootModel[str]):
@@ -24,9 +20,7 @@ class Color(RootModel[str]):
 
 
 class EmployeeShiftStatus(RootModel[str]):
-    """
-    Employee shift status
-    """
+    """Employee shift status"""
 
     root: str
 

@@ -9,6 +9,4 @@ from pydantic import BaseModel, Field
 
 class SingleLineDescriptionWithExample(BaseModel):
     name: str | None = Field(None, description='User name.', examples=['John Doe'])
-    """
-    Example: 'John Doe'
-    """
+    """Example: 'John Doe'"""

@@ -12,10 +12,6 @@ class Person(BaseModel):
         use_attribute_docstrings=True,
     )
     name: str
-    """
-    The person's full name
-    """
+    """The person's full name"""
     age: int | None = None
-    """
-    The person's age in years
-    """
+    """The person's age in years"""

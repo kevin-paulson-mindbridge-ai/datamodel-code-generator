@@ -11,15 +11,11 @@ from pydantic import RootModel
 from typing_extensions import TypeAliasType
 
 Boolean = TypeAliasType("Boolean", bool)
-"""
-The `Boolean` scalar type represents `true` or `false`.
-"""
+"""The `Boolean` scalar type represents `true` or `false`."""
 
 
 String = TypeAliasType("String", str)
-"""
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-"""
+"""The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text."""
 
 
 class Color(Enum):
@@ -29,9 +25,7 @@ class Color(Enum):
 
 
 class EmployeeShiftStatus(Enum):
-    """
-    Employee shift status
-    """
+    """Employee shift status"""
 
     NOT_ON_SHIFT = 'NOT_ON_SHIFT'
     ON_SHIFT = 'ON_SHIFT'

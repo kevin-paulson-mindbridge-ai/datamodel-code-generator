@@ -8,41 +8,27 @@ from pydantic import BaseModel
 
 
 class ExampleWithBackslash(BaseModel):
-    """
-    Observe the backslash \\ in this line
-    """
+    """Observe the backslash \\ in this line"""
 
     name: str | None = None
-    """
-    Path like C:\\Users\\name
-    """
+    """Path like C:\\Users\\name"""
 
 
 class ExampleWithTripleQuotes(BaseModel):
-    """
-    Contains \"\"\"triple quotes\"\"\"
-    """
+    """Contains \"\"\"triple quotes\"\"\" """
 
     value: str | None = None
-    """
-    Field with \"\"\"quotes\"\"\"
-    """
+    """Field with \"\"\"quotes\"\"\" """
 
 
 class ExampleWithBoth(BaseModel):
-    """
-    Has both \\ backslash and \"\"\"quotes\"\"\"
-    """
+    """Has both \\ backslash and \"\"\"quotes\"\"\" """
 
     data: str | None = None
-    """
-    Data: C:\\path\\to\\\"\"\"file\"\"\"
-    """
+    """Data: C:\\path\\to\\\"\"\"file\"\"\" """
 
 
 class ExampleWithNewlineEscape(BaseModel):
-    """
-    Text with \\n which looks like newline escape
-    """
+    """Text with \\n which looks like newline escape"""
 
     text: str | None = None

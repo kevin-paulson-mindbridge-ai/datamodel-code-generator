@@ -21,6 +21,4 @@ class Extras(BaseModel):
     - 20
     """
     status: str | None = Field(None, examples=['active'])
-    """
-    Example: 'active'
-    """
+    """Example: 'active'"""

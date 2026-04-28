@@ -47,17 +47,11 @@ class Api(BaseModel):
     Now also with multi-line docstrings.
     """
     apiVersionNumber: str | None = None
-    """
-    To be used as a version parameter value
-    """
+    """To be used as a version parameter value"""
     apiUrl: AnyUrl | None = None
-    """
-    The URL describing the dataset's fields
-    """
+    """The URL describing the dataset's fields"""
     apiDocumentationUrl: AnyUrl | None = None
-    """
-    A URL to the API console for each API
-    """
+    """A URL to the API console for each API"""
 
 
 class Apis(RootModel[list[Api]]):
