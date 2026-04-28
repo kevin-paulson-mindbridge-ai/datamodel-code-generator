@@ -82,8 +82,7 @@ def format_docstring(value: str | None, indent_spaces: int = 0) -> str:
         indent_spaces: Spaces to indent for all lines after the opening triple-quotes
 
     Returns:
-        Empty string when `value` is falsy; otherwise the docstring block
-        including a trailing newline.
+        Empty string when `value` is falsy; otherwise the docstring block.
     """
     if not value:
         return ""
@@ -96,10 +95,13 @@ def format_docstring(value: str | None, indent_spaces: int = 0) -> str:
     escaped = escape_docstring(value)
 
     if len(value.splitlines()) == 1:
-        return f'"""{escaped}"""\n'
+        if escaped.endswith('"'):
+            escaped = f"{escaped} "
+
+        return f'"""{escaped}"""'
 
     indent_text = textwrap.indent(f'{escaped}\n"""', max(indent_spaces, 0) * " ")
-    return f'"""\n{indent_text}\n'
+    return f'"""\n{indent_text}'
 
 
 ALL_MODEL: str = "#all#"
