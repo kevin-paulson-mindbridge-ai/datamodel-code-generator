@@ -488,8 +488,7 @@ def _get_environment(template_subdir: Path, custom_template_dir: Path | None) ->
         loader=loader,
         autoescape=select_autoescape(["html", "xml"]),
     )
-    env.filters["escape_docstring"] = escape_docstring
-    env.filters["format_pep257_docstring"] = format_docstring
+    env.filters["format_docstring"] = format_docstring
     return env
 
 
@@ -522,8 +521,7 @@ def _get_environment_with_absolute_path(absolute_template_dir: Path, builtin_sub
         loader=ChoiceLoader(loaders),
         autoescape=select_autoescape(["html", "xml"]),
     )
-    env.filters["escape_docstring"] = escape_docstring
-    env.filters["format_pep257_docstring"] = format_docstring
+    env.filters["format_docstring"] = format_docstring
     return env
 
 

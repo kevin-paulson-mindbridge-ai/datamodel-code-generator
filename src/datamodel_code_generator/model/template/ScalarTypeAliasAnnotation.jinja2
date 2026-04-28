@@ -1,4 +1,4 @@
 {{ class_name }}: TypeAlias = {{ py_type }}
 {%- if description %}
-{{ description | format_pep257_docstring(0) }}
+{{ description | format_docstring(0) }}
 {%- endif %}

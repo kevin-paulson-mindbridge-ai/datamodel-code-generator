@@ -18,7 +18,7 @@
 {%- set use_base_type = config and config.regex_engine -%}
 class {{ class_name }}({{ base_class }}{%- if fields -%}[{{get_type_hint(fields, use_base_type)}}]{%- endif -%}):{% if comment is defined %}  # {{ comment }}{% endif %}
 {%- if description %}
-{{ description | format_pep257_docstring(4) }}
+    {{ description | format_docstring(4) }}
 {%- endif %}
 {%- if config %}
 {%- filter indent(4) %}
@@ -45,7 +45,7 @@ class {{ class_name }}({{ base_class }}{%- if fields -%}[{{get_type_hint(fields,
     {%- endif -%}
     {%- endif %}
     {%- if field.docstring %}
-        {{ field.docstring | format_pep257_docstring(4) }}
+    {{ field.docstring | format_docstring(4) }}
     {%- elif field.inline_field_docstring %}
     {{ field.inline_field_docstring }}
 
