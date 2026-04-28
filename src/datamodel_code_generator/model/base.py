@@ -389,9 +389,10 @@ class DataModelFieldBase(_BaseModel):
         """Get the inline docstring for this field if single-line."""
         if self.use_inline_field_description:
             description = self.extras.get("description", None)
-            if description is not None and "\n" not in description:
-                escaped = escape_docstring(description)
-                return f'"""{escaped}"""'
+            docstring = format_docstring(description, 0)
+            if docstring:
+                return docstring
+
         return None
 
     @property

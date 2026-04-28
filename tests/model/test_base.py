@@ -417,7 +417,7 @@ def test_inline_field_docstring_escapes_triple_quotes() -> None:
         extras={"description": 'Contains """quotes"""'},
         use_inline_field_description=True,
     )
-    assert field.inline_field_docstring == r'"""Contains \"\"\"quotes\"\"\""""'
+    assert field.inline_field_docstring == r'"""Contains \"\"\"quotes\"\"\" """'
 
 
 def test_data_type_manager_unknown_type_raises_error() -> None:
