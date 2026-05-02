@@ -10,4 +10,6 @@ from dataclasses import dataclass
 @dataclass
 class SingleLineDescriptionWithExample:
     name: str | None = None
-    """Example: 'John Doe'"""
+    """
+    Example: 'John Doe'
+    """

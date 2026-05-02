@@ -14,7 +14,9 @@ class Animal(BaseModel):
         extra='forbid',
     )
     kind: Kind | None = None
-    """The kind of the animal"""
+    """
+    The kind of the animal
+    """
 
 
 class Animals(RootModel[Animal]):
@@ -31,7 +33,9 @@ class Pet(BaseModel):
         extra='forbid',
     )
     kind: Kind | None = None
-    """The kind of the pet"""
+    """
+    The kind of the pet
+    """
 
 
 class Pets(RootModel[Pet]):

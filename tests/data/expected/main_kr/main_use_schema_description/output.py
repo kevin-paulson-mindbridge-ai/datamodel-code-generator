@@ -66,7 +66,9 @@ class Apis(RootModel[list[Api]]):
 
 
 class Event(BaseModel):
-    """Event object"""
+    """
+    Event object
+    """
 
     name: str | None = None
 

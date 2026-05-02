@@ -9,7 +9,9 @@ from pydantic import BaseModel, Field
 
 class Extras(BaseModel):
     name: str | None = Field(None, description='normal key', examples=['example'])
-    """Example: 'example'"""
+    """
+    Example: 'example'
+    """
     age: int | None = Field(None, examples=[13, 20], json_schema_extra={'example': 12})
     """
     Examples:
@@ -17,4 +19,6 @@ class Extras(BaseModel):
     - 20
     """
     status: str | None = Field(None, examples=['active'])
-    """Example: 'active'"""
+    """
+    Example: 'active'
+    """

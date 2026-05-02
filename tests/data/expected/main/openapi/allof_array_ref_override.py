@@ -30,7 +30,9 @@ class Metadata(BaseModel):
 
 
 class CollectionWrapper(BaseModel):
-    """Generic response wrapper containing a collection of items and pagination metadata."""
+    """
+    Generic response wrapper containing a collection of items and pagination metadata.
+    """
 
     data: list[dict[str, Any]] = Field(
         ..., description='Array of items in the collection.'

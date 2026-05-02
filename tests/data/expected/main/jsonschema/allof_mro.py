@@ -20,7 +20,9 @@ class RightBranch(BaseInterface):
 
 
 class DiamondType(LeftBranch, RightBranch, BaseInterface):
-    """Diamond inheritance pattern - inherits from both LeftBranch and RightBranch which both inherit from BaseInterface"""
+    """
+    Diamond inheritance pattern - inherits from both LeftBranch and RightBranch which both inherit from BaseInterface
+    """
 
     diamond_value: str | None = None
 

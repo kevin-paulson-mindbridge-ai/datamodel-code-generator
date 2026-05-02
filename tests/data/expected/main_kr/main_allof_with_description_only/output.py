@@ -8,10 +8,14 @@ from pydantic import BaseModel
 
 
 class MyModel(BaseModel):
-    """A model that has a description."""
+    """
+    A model that has a description.
+    """
 
     name: str | None = None
 
 
 class MyOtherModel(MyModel):
-    """Another model that should also have a description."""
+    """
+    Another model that should also have a description.
+    """
