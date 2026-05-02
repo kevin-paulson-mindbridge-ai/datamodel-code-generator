@@ -23,6 +23,6 @@ String = TypeAliasType("String", str)
 
 class User(BaseModel):
     id: ID
-    name: String | None = 'default_user'
-    status: String | None = 'active'
+    name: String = 'default_user'
+    status: String = 'active'
     typename__: Literal['User'] | None = Field('User', alias='__typename')
